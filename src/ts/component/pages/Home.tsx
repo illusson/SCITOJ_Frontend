@@ -10,7 +10,6 @@ import HomeworkDetail from "../fragment/HomeworkDetail";
 import ProblemDetail from "../fragment/ProblemDetail";
 import Button from "@mui/material/Button";
 import Toolbar from "@mui/material/Toolbar";
-import {ComponentType} from "react";
 
 class Home extends SampleRouteComponent {
     state = {

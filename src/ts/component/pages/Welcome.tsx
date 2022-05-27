@@ -1,4 +1,5 @@
 import {SampleRouteComponent, withRouter} from "../../core/RouteComponent";
+import {GridView} from "@mui/icons-material";
 
 class Welcome extends SampleRouteComponent {
     componentDidMount() {
@@ -7,7 +8,9 @@ class Welcome extends SampleRouteComponent {
 
     public render() {
         return (
-            <div>Welcome</div>
+            <div>
+
+            </div>
         );
     }
 }
