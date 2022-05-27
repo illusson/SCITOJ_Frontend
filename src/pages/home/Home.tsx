@@ -17,9 +17,10 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import {useRoutes} from 'react-router-dom'
+import {useRoutes,Navigate} from 'react-router-dom'
 
 import routes from '../../routes'
+import {Component} from "react";
 
 const drawerWidth = 240;
 
@@ -30,15 +31,31 @@ interface LinkTabProps {
 
 function LinkTab(props: LinkTabProps) {
     return (
-        <div>
             <Tab component="a"
                  onClick={(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-                     event.preventDefault();
-                 }} {...props}/>
-            {/*<Navigate to={props.href}/>*/}
-        </div>
+                     event.preventDefault()
+                     console.log(props)
+                 }}{...props}/>
     );
 }
+
+// class LinkTab extends Component {
+//     constructor(props:LinkTabProps) {
+//         super(props);
+//     }
+//     render () {
+//         console.log(this)
+//         return (
+//             <Tab component="a"
+//                  onClick={(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+//                      event.preventDefault()
+//                      console.log(this.props)
+//                  }}{...this.props}/>
+//         )
+//     }
+//
+//
+// }
 
 interface Props {
     window?: () => Window;
@@ -109,7 +126,7 @@ export default function Home(props: Props) {
                                     sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                             SCIT Online Judge
                         </Typography>
-                        <Tabs value={pageId} onChange={gotoPage} aria-label="nav tabs example"
+                        <Tabs value={pageId} onChange={gotoPage}
                               sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }}}>
                             <LinkTab label="题目" href="/subject"/>
                             <LinkTab label="竞赛" href="/competition" />
@@ -134,7 +151,8 @@ export default function Home(props: Props) {
                 </Drawer>
             </header>
             <main>
-                <Box sx={{flexGrow: 1, p: 3}}>
+                <Box sx={{flexGrow: 1, p: 3,
+                    height: 1000,backgroundColor: 'orange'}}>
                     <Toolbar />
                     {element}
                 </Box>
