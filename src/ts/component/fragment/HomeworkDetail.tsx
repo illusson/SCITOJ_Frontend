@@ -3,16 +3,13 @@ import {RouteComponent, withRouter} from "../../core/RouteComponent";
 class HomeworkDetail extends RouteComponent<HomeworkDetailProp> {
     public render() {
         return (
-            <div>
-                <div>HomeworkDetail, id: </div>
-                <div>{ this.props.params.displayId }</div>
-            </div>
+            <div>HomeworkDetail, id: { this.props.params.id }</div>
         );
     }
 }
 
-class HomeworkDetailProp {
-    displayId: String | undefined
+interface HomeworkDetailProp {
+    id: String | undefined
 }
 
 export default withRouter(HomeworkDetail)

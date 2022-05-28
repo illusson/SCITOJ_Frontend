@@ -1,16 +1,15 @@
 import {SampleRouteComponent, withRouter} from "../../core/RouteComponent";
-import {GridView} from "@mui/icons-material";
 
 class Welcome extends SampleRouteComponent {
     componentDidMount() {
-        this.redirect("/problem")
+        setTimeout(() => {
+            this.historyReplace("/problem")
+        }, 1000)
     }
 
     public render() {
         return (
-            <div>
-
-            </div>
+            <div>Welcome</div>
         );
     }
 }

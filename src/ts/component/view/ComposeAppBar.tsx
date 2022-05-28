@@ -1,5 +1,5 @@
 import {ComposeComponent} from "../../core/ComposeComponent";
-import React, {ComponentType} from "react";
+import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -15,10 +15,12 @@ import ListItemText from "@mui/material/ListItemText";
 export class HomeTabData {
     public readonly title: string
     public readonly path: string
+    public readonly key: string
 
     constructor(title: string, path: string) {
         this.title = title;
         this.path = path;
+        this.key = path.split("/")[1];
     }
 }
 
@@ -26,11 +28,11 @@ export interface ComposeAppBarProp {
     window: (() => HTMLElement),
     title: string,
     tags: Array<HomeTabData>,
-    actions: JSX.Element[],
+    actions: JSX.Element,
     redirect: (url: string) => void,
 
-    index: number,
-    onSelect: (index: number) => void,
+    index: string,
+    onSelect: (index: string) => void,
 
     open: boolean,
     onClose: React.ReactEventHandler<{}>,
@@ -54,13 +56,13 @@ export default class ComposeAppBar extends ComposeComponent<ComposeAppBarProp> {
                         <Typography variant="h6" component="div">
                             { this.props.title }
                         </Typography>
-                        <Tabs aria-label="nav tabs" value={this.props.index}
+                        <Tabs aria-label="nav tabs" value={ComposeAppBar.getAbstractPath()}
                               sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }}}>{
-                            this.props.tags.map((data, index) => (
-                                <Tab label={data.title} key={index}
+                            this.props.tags.map((data) => (
+                                <Tab label={data.title} value={data.key}
                                     onClick={() => {
                                         this.props.redirect(data.path)
-                                        this.props.onSelect(index)
+                                        this.props.onSelect(data.key)
                                     }}/>
                             ))
                         }</Tabs>
@@ -88,5 +90,10 @@ export default class ComposeAppBar extends ComposeComponent<ComposeAppBarProp> {
                 </Drawer>
             </div>
         );
+    }
+
+    private static getAbstractPath() {
+        const path = window!!.location.href.split("//")[1]
+        return path.split("/")[1]
     }
 }

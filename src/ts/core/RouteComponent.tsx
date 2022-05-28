@@ -1,9 +1,13 @@
-import {BrowserRouterProps, useLocation, useNavigate, useParams} from "react-router-dom"
 import {ComposeComponent} from "./ComposeComponent";
+import {BrowserRouterProps, useLocation, useNavigate, useParams} from "react-router-dom";
 import {ComponentType} from "react";
 
 export class RouteComponent<T> extends ComposeComponent<WithRouterProps<T>> {
-    protected redirect(url: string) {
+    protected historyReplace(url: string) {
+        this.props.history.replace(url)
+    }
+
+    protected historyPush(url: string) {
         this.props.history.push(url)
     }
 }
@@ -26,10 +30,7 @@ export interface WithRouterProps<T = ReturnType<typeof useParams>> extends Brows
 export const withRouter = <P extends object>(Component: ComponentType<P>) => {
     return (props: Omit<P, keyof WithRouterProps>) => {
         const location = useLocation();
-
         const navigate = useNavigate();
-        navigate("/path/to/next")
-
         const history = {
             back: () => navigate(-1),
             goBack: () => navigate(-1),

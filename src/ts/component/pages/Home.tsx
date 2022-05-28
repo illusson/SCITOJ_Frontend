@@ -14,16 +14,16 @@ import Toolbar from "@mui/material/Toolbar";
 class Home extends SampleRouteComponent {
     state = {
         mobileOpen: false,
-        index: 0,
+        index: "problem",
     }
 
     private route = [
-        { title: "题目", path: "/problem", component: <Problems />, sub: false },
-        { title: "题目详情", path: "/problem/:id", component: <ProblemDetail />, sub: true },
-        { title: "提交", path: "/submission", component: <Submission />, sub: false },
-        { title: "作业", path: "/homework", component: <Homework />, sub: false },
-        { title: "作业详情", path: "/homework/:id", component: <HomeworkDetail />, sub: true },
-        { title: "关于", path: "/about", component: <About />, sub: false }
+        { title: "题目",    path: "/problem",       component: <Problems/>,       sub: false, index: "problem" },
+        { title: "题目详情", path: "/problem/:id",   component: <ProblemDetail/>,  sub: true,  index: "problem" },
+        { title: "提交",    path: "/submission",    component: <Submission/>,     sub: false, index: "submission" },
+        { title: "作业",    path: "/homework",      component: <Homework/>,       sub: false, index: "homework" },
+        { title: "作业详情", path: "/homework/:id",  component: <HomeworkDetail/>, sub: true,  index: "homework" },
+        { title: "关于",    path: "/about",         component: <About/>,          sub: false, index: "about" }
     ]
 
     public render() {
@@ -38,10 +38,10 @@ class Home extends SampleRouteComponent {
                         onClose={() => this.setState({ mobileOpen: false })}
                         onOpen={() => this.setState({ mobileOpen: true })}
                         open={this.state.mobileOpen}
-                        redirect={this.redirect}
-                        actions={[
-                            ( <Button color="inherit">登录</Button> )
-                        ]}
+                        redirect={(url) => { this.historyPush(url) }}
+                        actions={<div>
+                            <Button color="inherit">登录</Button>
+                        </div>}
                         index={this.state.index}
                         onSelect={(index) => this.setState({ index: index })}/>
                 </header>
